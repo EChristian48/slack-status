@@ -4,17 +4,19 @@ import puppeteer, { Page } from "puppeteer";
 import { SELECTORS } from "./selectors";
 import { DOWNLOAD_PATH } from "src/lib/utils/picture";
 
-const URL_SIGN_IN = "https://xcidic.slack.com/sign_in_with_password";
-
 const rl = createInterface({
   input: stdin,
   output: stdout,
 });
 
+const workspace =
+  import.meta.env.VITE_SLACK_WORKSPACE ?? (await rl.question("Workspace: "));
 const email =
   import.meta.env.VITE_SLACK_EMAIL ?? (await rl.question("Email: "));
 const password =
   import.meta.env.VITE_SLACK_PASSWORD ?? (await rl.question("Password: "));
+
+const URL_SIGN_IN = `https://${workspace}/sign_in_with_password`;
 
 rl.close();
 
